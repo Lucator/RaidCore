@@ -22,7 +22,7 @@ local monitoring = nil
 
 local trackMaster = Apollo.GetAddon("TrackMaster")
 local markCount = 0
-local AddonVersion = 15020902
+local AddonVersion = 15020903
 local VCReply, VCtimer = {}, nil
 local CommChannelTimer = nil
 local empCD, empTimer = 5, nil
@@ -1362,6 +1362,24 @@ function RaidCore:SendSync(syncName, param)
 	end
 	local msg = {action = "Sync", sender = GameLib.GetPlayerUnit():GetName(), sync = syncName, parameter = param}
 	self:SendMessage(msg)	
+end
+
+function RaidCore:GetLocale()
+		-- We cannot get this directly so need to do a comparision
+	local strCancel = Apollo.GetString(1)
+
+	-- German
+	if strCancel == "Abbrechen" then
+		return "deDE"
+	end
+
+	-- French
+	if strCancel == "Annuler" then
+		return "frFR"
+	end
+
+	-- Other
+	return "enUS"
 end
 
 -----------------------------------------------------------------------------------------------
